@@ -26,5 +26,21 @@
         <source src="https://459e-82-78-48-140.ngrok-free.app/stream" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    <!-- Add the debug div and script here -->
+    <div id="debug" style="color: red; margin-top: 20px;"></div>
+    <script>
+        const audio = document.querySelector('audio');
+        const debugDiv = document.querySelector('#debug');
+        audio.addEventListener('error', (e) => {
+            debugDiv.innerText = 'Error: ' + (audio.error.message || audio.error.code || 'Unknown error');
+        });
+        audio.addEventListener('play', () => {
+            debugDiv.style.color = 'green';
+            debugDiv.innerText = 'Playing!';
+        });
+        audio.addEventListener('canplay', () => {
+            debugDiv.innerText = 'Stream loaded, ready to play.';
+        });
+    </script>
 </body>
 </html>
