@@ -28,19 +28,28 @@
     </audio>
     <!-- Add the debug div and script here -->
     <div id="debug" style="color: red; margin-top: 20px;"></div>
-    <script>
-        const audio = document.querySelector('audio');
-        const debugDiv = document.querySelector('#debug');
-        audio.addEventListener('error', (e) => {
-            debugDiv.innerText = 'Error: ' + (audio.error.message || audio.error.code || 'Unknown error');
-        });
-        audio.addEventListener('play', () => {
-            debugDiv.style.color = 'green';
-            debugDiv.innerText = 'Playing!';
-        });
-        audio.addEventListener('canplay', () => {
-            debugDiv.innerText = 'Stream loaded, ready to play.';
-        });
-    </script>
+<script>
+    const audio = document.querySelector('audio');
+    const debugDiv = document.querySelector('#debug');
+    audio.addEventListener('error', (e) => {
+        debugDiv.innerText = 'Error: ' + (audio.error.message || audio.error.code || 'Unknown error');
+    });
+    audio.addEventListener('play', () => {
+        debugDiv.style.color = 'green';
+        debugDiv.innerText = 'Playing!';
+    });
+    audio.addEventListener('canplay', () => {
+        debugDiv.innerText = 'Stream loaded, ready to play.';
+    });
+    audio.addEventListener('waiting', () => {
+        debugDiv.innerText = 'Waiting: Buffering stream...';
+    });
+    audio.addEventListener('stalled', () => {
+        debugDiv.innerText = 'Stalled: Stream stopped loading.';
+    });
+    audio.addEventListener('timeupdate', () => {
+        debugDiv.innerText = 'Playing! Current time: ' + audio.currentTime + 's';
+    });
+</script>
 </body>
 </html>
